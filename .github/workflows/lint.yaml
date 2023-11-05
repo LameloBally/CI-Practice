@@ -15,7 +15,7 @@ jobs:
     env:
       OS: ${{ matrix.os }}
       # Ubuntu의 파이썬 버전 명시
-      PYTHON: '3.7'
+      PYTHON: '3.9'
 
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
