@@ -1,0 +1,34 @@
+# 이름 명시
+name: Lint Code Base
+
+# 트리거
+#[push, pull_request] 가능함
+on: push
+
+# 어떤 Action들을 해볼 것인지를 명시함, 여기서는 super-lint라는 것을 내가 만듬
+jobs:
+  # Job Key 설정 -> super-lint로 이름 지정함
+  super-lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    env:
+      OS: ${{ matrix.os }}
+      # Ubuntu의 파이썬 버전 명시
+      PYTHON: '3.9'
+
+    steps:
+      # Checks out a copy of your repository on the ubuntu-latest machine
+      - name: Checkout code
+      # github에서 만든 checkout을 사용함
+        uses: actions/checkout@v2
+
+      # Runs the Super-Linter action
+      - name: Lint Code Base
+      # github에서 만든 lint 모듈
+        uses: github/super-linter@v4
+        env:
+          DEFAULT_BRANCH: master
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PYTHON_BLACK: true
+          # VALIDATE_PYTHON_FLAKE8: true
