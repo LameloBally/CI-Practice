@@ -1,0 +1,41 @@
+# coverage 라는 yml 파일을 만들어서, 유닛테스트를 위한 테스트 파일이 통과 안되면 Merge가 안되게 만들기 + 리포트까지
+
+
+name: Coverage Report
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+jobs:
+  coverage-report:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.9' 
+          # Optional - x64 or x86 architecture, defaults to x64
+          architecture: 'x64'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        # 모든 *_test.py 파일(유닛 테스트)가 통과하면 merge 가 되도록 설정
+      - name: Generate coverage report
+        run: |
+          coverage run --source=./ -m unittest discover -p "*_test.py"
+          coverage xml
+      
+      # climate code 라는 곳에서 repo 토큰을 받아서, 어떤 유닛테스트가 실패했는지 보고서로 받아볼 수 있게 하기
+      - name: Upload coverage to code climate
+        env:
+          CODECLIMATE_REPO_TOKEN: 51642184e2902baab3007c428a39a553590c79209aa133eb7fc093e3b021b775
+        run: |
+          codeclimate-test-reporter

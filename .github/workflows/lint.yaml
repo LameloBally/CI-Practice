@@ -1,3 +1,5 @@
+# Lint를 잘 따랐는지를 확인하고 CI 를 진행하기 위한 yml 파일입니다.
+
 # 이름 명시
 name: Lint Code Base
 
@@ -5,18 +7,20 @@ name: Lint Code Base
 #[push, pull_request] 가능함
 on: push
 
-# 어떤 Action들을 해볼 것인지를 명시함, 여기서는 super-lint라는 것을 내가 만듬
+# Jobs 에는 어떤 Action(통과해야지 MERGE 할 수 있는)들을 해볼 것인지를 명시함,
 jobs:
-  # Job Key 설정 -> super-lint로 이름 지정함
+  # Job Key 설정 -> 여러가지 action들을 묶어서 하나의 job으로, job key를 이용해서 job에 접근
   super-lint:
     name: Lint Code Base
     runs-on: ubuntu-latest
 
+    # job의 구체적인 환경 설정
     env:
       OS: ${{ matrix.os }}
       # Ubuntu의 파이썬 버전 명시
       PYTHON: '3.9'
 
+    # github actions들을 명기
     steps:
       # Checks out a copy of your repository on the ubuntu-latest machine
       - name: Checkout code
@@ -31,4 +35,4 @@ jobs:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PYTHON_BLACK: true
-          # VALIDATE_PYTHON_FLAKE8: true
+        
