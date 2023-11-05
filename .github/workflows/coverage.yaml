@@ -32,10 +32,4 @@ jobs:
         run: |
           coverage run --source=./ -m unittest discover -p "*_test.py"
           coverage xml
-      
-      # climate code 라는 곳에서 repo 토큰을 받아서, 어떤 유닛테스트가 실패했는지 보고서로 받아볼 수 있게 하기
-      - name: Upload coverage to code climate
-        env:
-          CODECLIMATE_REPO_TOKEN: aa0864197d30fc38113760a3b19fe16ee99c690209218a3e0a612647cdc4fbd5
-        run: |
-          codeclimate-test-reporter
+    
