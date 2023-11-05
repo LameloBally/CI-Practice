@@ -36,6 +36,6 @@ jobs:
       # climate code 라는 곳에서 repo 토큰을 받아서, 어떤 유닛테스트가 실패했는지 보고서로 받아볼 수 있게 하기
       - name: Upload coverage to code climate
         env:
-          CODECLIMATE_REPO_TOKEN: 51642184e2902baab3007c428a39a553590c79209aa133eb7fc093e3b021b775
+          CODECLIMATE_REPO_TOKEN: aa0864197d30fc38113760a3b19fe16ee99c690209218a3e0a612647cdc4fbd5
         run: |
           codeclimate-test-reporter
