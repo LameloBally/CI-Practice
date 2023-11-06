@@ -5,6 +5,4 @@ def Hello(name :str) -> str :
 
 
 if __name__ == '__main__':
-    a = 2
-    print(type(a))
-    Hello(1)
+    Hello("Myung")
