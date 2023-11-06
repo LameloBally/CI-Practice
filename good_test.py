@@ -6,7 +6,7 @@ import good
 class helloTest(unittest.TestCase):
     def test_hello(self):
         ret = good.Hello("Myung")
-        self.assertEqual(ret, "Hello Nice to mee u, Maung")
+        self.assertEqual(ret, "Hello Nice to mee u, Myung")
 
 
 if __name__ == "__main__":
